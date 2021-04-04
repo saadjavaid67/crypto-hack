@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Hack</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        td,
+        th {
+            padding: 5px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        #tableContainer {
+            width: 100vw;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Crypto Hack</h1>
+    <div id="tableContainer">
+
+        <table>
+            <thead>
+                <tr id="key"></tr>
+            </thead>
+            <tbody>
+                <tr id="value"></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // function getReq() {
+        var xhr = new XMLHttpRequest();
+        var url = "https://api.nomics.com/v1/prices?key=025b2fba32bd44371dc2773bff57e34a";
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var cur = '<th>Currency</th>';
+                var prices = '<th>Prices</th>';
+                tables = JSON.parse(xhr.response);
+                for (let i = 0; i < tables.length; i++) {
+                    cur += `<th>` + tables[i].currency + `</th>`;
+                    prices += `<td>` + tables[i].price + `</td>`;
+                }
+
+                document.getElementById('key').innerHTML = cur;
+                document.getElementById('value').innerHTML = prices;
+            }
+        };
+        xhr.send();
+        // }
+    </script>
+</body>
+
+</html>
